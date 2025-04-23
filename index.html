@@ -1,33 +1,246 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparación Git Local vs Git Remoto</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+    h1 {
+      text-align: center;
+      color: #4a6fa5;
+      margin-bottom: 30px;
+    }
 
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .comparison-table th {
+      background-color: #6c9bcf;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .comparison-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .comparison-table tr:nth-child(odd) {
+      background-color: #f2f9ff;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background-color: #e6f3ff;
+    }
+
+    .local {
+      background-color: #b5e8b5 !important;
+    }
+
+    .remote {
+      background-color: #ffd8b5 !important;
+    }
+
+    .emoji {
+      font-size: 1.4em;
+      margin-right: 10px;
+    }
+
+    .feature {
+      font-weight: 600;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-local {
+      background-color: #b5e8b5;
+      color: #2c7c2c;
+    }
+
+    .btn-remote {
+      background-color: #ffd8b5;
+      color: #b35900;
+    }
+
+    .btn-all {
+      background-color: #6c9bcf;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .row {
+      display: table-row;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #777;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .comparison-table th, .comparison-table td {
+        padding: 8px;
+      }
+
+      .btn-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 80%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+<div class="container">
+  <h1>📊 Comparación entre Git Local y Git Remoto</h1>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
+  <div class="btn-container">
+    <button class="btn btn-local" onclick="filterTable('local')">Mostrar Solo Git Local 💻</button>
+    <button class="btn btn-remote" onclick="filterTable('remote')">Mostrar Solo Git Remoto ☁️</button>
+    <button class="btn btn-all" onclick="filterTable('all')">Mostrar Todo 🔄</button>
+  </div>
 
+  <table class="comparison-table">
+    <thead>
+    <tr>
+      <th>Característica</th>
+      <th>Git Local 💻</th>
+      <th>Git Remoto ☁️</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="row">
+      <td class="feature">📍 Ubicación</td>
+      <td class="local">Almacenado en la máquina local del desarrollador</td>
+      <td class="remote">Almacenado en un servidor externo (GitHub, GitLab, Bitbucket, etc.)</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">🔄 Sincronización</td>
+      <td class="local">No requiere conexión a internet para operar</td>
+      <td class="remote">Requiere conexión a internet para sincronizarse</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">👥 Colaboración</td>
+      <td class="local">Limitado a un solo usuario</td>
+      <td class="remote">Permite la colaboración entre múltiples desarrolladores</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">💾 Respaldo</td>
+      <td class="local">Vulnerable a pérdida de datos si el dispositivo falla</td>
+      <td class="remote">Sirve como copia de seguridad del proyecto</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">🔧 Comandos principales</td>
+      <td class="local">init, add, commit, branch, checkout, merge, stash</td>
+      <td class="remote">clone, fetch, pull, push, remote</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">🔒 Seguridad</td>
+      <td class="local">Controlado únicamente por las protecciones del sistema local</td>
+      <td class="remote">Ofrece capas adicionales de seguridad como autenticación y autorización</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">📋 Revisión de código</td>
+      <td class="local">No facilita procesos de revisión colaborativa</td>
+      <td class="remote">Permite pull requests y revisiones de código</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">🌐 Accesibilidad</td>
+      <td class="local">Accesible solo desde la computadora donde está instalado</td>
+      <td class="remote">Accesible desde cualquier lugar con conexión a internet</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">📱 Interfaz</td>
+      <td class="local">Principalmente CLI, algunas GUI locales</td>
+      <td class="remote">Interfaces web, móviles y de escritorio avanzadas</td>
+    </tr>
+    <tr class="row">
+      <td class="feature">⚙️ Operaciones</td>
+      <td class="local">Operaciones más rápidas al ser locales</td>
+      <td class="remote">Operaciones más lentas debido a la transferencia de red</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Creado con ❤️ para mostrar las diferencias entre Git Local y Remoto | Abril 2025
+  </footer>
+</div>
+
+<script>
+  function filterTable(filter) {
+    const rows = document.querySelectorAll('.row');
+
+    rows.forEach(row => {
+      row.classList.remove('hidden');
+
+      if (filter === 'local') {
+        row.querySelector('.remote').style.display = 'none';
+        row.querySelector('.local').style.display = 'table-cell';
+      } else if (filter === 'remote') {
+        row.querySelector('.local').style.display = 'none';
+        row.querySelector('.remote').style.display = 'table-cell';
+      } else {
+        row.querySelector('.local').style.display = 'table-cell';
+        row.querySelector('.remote').style.display = 'table-cell';
+      }
+    });
+  }
+</script>
 </body>
-
 </html>
