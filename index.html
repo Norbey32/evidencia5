@@ -46,6 +46,7 @@
     .comparison-table td {
       padding: 12px 15px;
       border-bottom: 1px solid #ddd;
+      transition: all 0.3s ease;
     }
 
     .comparison-table tr:nth-child(odd) {
@@ -56,12 +57,37 @@
       background-color: #e6f3ff;
     }
 
+    /* Estilos para el hover en filas */
+    .row:hover {
+      transform: scale(1.03);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      z-index: 1;
+      position: relative;
+    }
+
+    .row:hover td {
+      background-color: #d4e9ff !important;
+    }
+
     .local {
       background-color: #b5e8b5 !important;
+      transition: all 0.3s ease;
     }
 
     .remote {
       background-color: #ffd8b5 !important;
+      transition: all 0.3s ease;
+    }
+
+    /* Efectos hover en celdas específicas */
+    .local:hover {
+      background-color: #8ad48a !important;
+      transform: scale(1.05);
+    }
+
+    .remote:hover {
+      background-color: #ffbf80 !important;
+      transform: scale(1.05);
     }
 
     .emoji {
@@ -71,6 +97,12 @@
 
     .feature {
       font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      color: #4a6fa5;
+      transform: scale(1.05);
     }
 
     .btn-container {
@@ -111,6 +143,7 @@
 
     .row {
       display: table-row;
+      transition: all 0.3s ease;
     }
 
     .hidden {
